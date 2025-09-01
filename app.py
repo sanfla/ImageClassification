@@ -9,7 +9,7 @@ st.title("Klasifikasi Gambar: Kucing vs Anjing")
 
 model_path = hf_hub_download(
     repo_id="sanfla/models_CatDog", 
-    filename="cats_dogs_model.keras"
+    filename="cats_dogs_model_v2.keras"
 )
 
 model = tf.keras.models.load_model(model_path, compile=False)
@@ -28,6 +28,7 @@ if uploaded:
     pred = model.predict(input_img)[0][0]
     label = "Kucing" if pred > 0.5 else "Anjing"
     st.subheader(f"Prediksi: {label}")
+
 
 
 
