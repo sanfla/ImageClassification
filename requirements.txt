@@ -1,5 +1,6 @@
-huggingface_hub==0.34.4
-numpy==1.24.3
-pillow==11.3.0
-streamlit==1.47.1
-tensorflow==2.13.0
+huggingface_hub
+numpy
+pillow
+streamlit
+tensorflow
+
