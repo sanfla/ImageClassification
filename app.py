@@ -12,7 +12,7 @@ model_path = hf_hub_download(
     filename="cats_dogs_model.keras"
 )
 
-model = tf.keras.models.load_model(model_path, safe_mode=False)
+model = tf.keras.models.load_model(model_path, compile=False)
 
 def preprocess(img):
     img = img.resize((128, 128))
@@ -28,6 +28,7 @@ if uploaded:
     pred = model.predict(input_img)[0][0]
     label = "Kucing" if pred > 0.5 else "Anjing"
     st.subheader(f"Prediksi: {label}")
+
 
 
 
