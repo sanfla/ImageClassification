@@ -2,7 +2,6 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image
 import numpy as np
-import os
 from huggingface_hub import hf_hub_download
 
 st.title("Klasifikasi Gambar: Kucing vs Anjing")
@@ -13,9 +12,11 @@ model_path = hf_hub_download(
 )
 
 model = tf.keras.models.load_model(model_path, compile=False)
+st.write("Input shape model:", model.input_shape)
 
 def preprocess(img):
-    img = img.resize((128, 128))
+    target_size = model.input_shape[1:3]
+    img = img.resize(target_size)
     img = np.array(img) / 255.0
     return np.expand_dims(img, axis=0)
 
@@ -25,13 +26,11 @@ if uploaded:
     st.image(img, caption="Gambar diunggah", use_column_width=True)
     input_img = preprocess(img)
 
-    pred = model.predict(input_img)[0][0]
-    label = "Kucing" if pred > 0.5 else "Anjing"
+    pred = model.predict(input_img)
+
+    if pred.shape[1] == 1:  
+        label = "Kucing" if pred[0][0] > 0.5 else "Anjing"
+    else:  
+        label = "Kucing" if np.argmax(pred[0]) == 0 else "Anjing"
+
     st.subheader(f"Prediksi: {label}")
-
-
-
-
-
-
-
