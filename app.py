@@ -29,5 +29,3 @@ if uploaded:
     label = "Kucing" if pred > 0.5 else "Anjing"
     st.subheader(f"Prediksi: {label}")
 
-    with open("monitor_log.csv", "a") as f:
-        f.write(f"{uploaded.name},{label},{pred:.4f}\n")
